@@ -1,0 +1,32 @@
+name: Windows widget
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: windows-app
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx electron-builder --win nsis --publish never
+      - name: Smoke test (okno otwiera się i widzi apkę)
+        timeout-minutes: 3
+        run: |
+          LIFE_SMOKE="$RUNNER_TEMP/smoke.txt" "./dist/win-unpacked/Life widget.exe" || true
+          cat "$RUNNER_TEMP/smoke.txt"
+          grep -q '"bridge":"object"' "$RUNNER_TEMP/smoke.txt"
+          grep -q '"onTop":true' "$RUNNER_TEMP/smoke.txt"
+      - name: Publikuj instalator (nie zmienia "latest", z którego bierze się Life.apk)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view windows >/dev/null 2>&1 || gh release create windows --latest=false --title "Life widget na Windows" --notes "Instalator widgetu. Niepodpisany: Windows może pokazać ostrzeżenie."
+          gh release upload windows dist/LifeWidget-Setup.exe --clobber
