@@ -1,0 +1,35 @@
+{
+  "name": "life-widget-desktop",
+  "productName": "Life widget",
+  "version": "1.0.0",
+  "description": "Life: stoper zadań zawsze na wierzchu",
+  "author": "Life",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "app.web.lifetimer.widget",
+    "files": [
+      "main.js",
+      "preload.js"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "icon.png",
+      "artifactName": "LifeWidget-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.5.0",
+    "electron-builder": "^26.18.0"
+  }
+}
