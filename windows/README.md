@@ -2,7 +2,11 @@
 
 Małe okno z apką Life, bez ramki i zawsze na wierzchu. Te same dane co w przeglądarce i na telefonie.
 
-## Instalacja
+## Instalacja (bez Pythona)
+
+Pobierz [LifeWidget-Setup.exe](https://github.com/antoniabc/life-app-releases/releases/download/windows/LifeWidget-Setup.exe) i uruchom. Instalator nie jest podpisany: jeśli Windows pokaże „System Windows ochronił ten komputer”, wybierz **Więcej informacji → Uruchom mimo to**. Przy włączonym Smart App Control Windows go zablokuje; wtedy użyj wersji z Pythonem.
+
+## Wersja z Pythonem
 
 1. Zainstaluj [Python 3.12](https://www.python.org/downloads/release/python-31210/) (zaznacz **Add python.exe to PATH**).
 2. Otwórz **PowerShell** i wklej całość:
